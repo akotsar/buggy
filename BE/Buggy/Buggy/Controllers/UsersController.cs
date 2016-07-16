@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 namespace Buggy.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/user")]
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         private readonly BuggyUserManager _userManager;

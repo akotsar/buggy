@@ -65,6 +65,7 @@
     <Compile Include="Identity\BuggyUserManager.cs" />
     <Compile Include="Initializers\BuggyDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seed\SeedComment.cs" />
     <Compile Include="Seed\SeedModel.cs" />
     <Compile Include="Users\User.cs" />
   </ItemGroup>

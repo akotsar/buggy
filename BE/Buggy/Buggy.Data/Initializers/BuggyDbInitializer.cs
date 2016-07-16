@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -6,6 +8,7 @@ using System.Reflection;
 using Buggy.Data.Seed;
 using Buggy.Data.Users;
 using Buggy.Models.Cars;
+using Buggy.Models.Comments;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace Buggy.Data.Initializers
 {
-    public class BuggyDbInitializer : DropCreateDatabaseAlways<BuggyContext>
+    public class BuggyDbInitializer : CreateDatabaseIfNotExists<BuggyContext>
     {
         protected override void Seed(BuggyContext context)
         {
@@ -47,16 +50,36 @@ namespace Buggy.Data.Initializers
 
         private void CreateCars(BuggyContext context)
         {
-            var makes = ReadSeedData<Make[]>("Makes.json");
+            var existingMakes = context.Makes.ToList();
+            var existingModels = context.Models.ToList();
+
+            var makes = ReadSeedData<Make[]>("Makes.json")
+                .Where(x => existingMakes.All(e => e.Name != x.Name)).ToList();
             context.Makes.AddRange(makes);
 
             var models = ReadSeedData<SeedModel[]>("Models.json");
             foreach (var model in models)
             {
-                model.Make = makes.Single(x => x.Name == model.MakeName);
-            }
+                var modelToAdd = model.ToModel();
 
-            context.Models.AddRange(models);
+                modelToAdd.Make = makes.SingleOrDefault(x => x.Name == model.MakeName)
+                    ?? existingMakes.Single(x => x.Name == model.MakeName);
+
+                modelToAdd.Comments =
+                    (model.Comments ?? Enumerable.Empty<SeedComment>()).Select(
+                        c =>
+                        new UserComment
+                        {
+                            Comment = c.Comment,
+                            DatePosted = c.DatePosted,
+                            UserId = Guid.NewGuid().ToString()
+                        }).ToList();
+
+                if (existingModels.All(e => e.Name != modelToAdd.Name || e.MakeId != modelToAdd.MakeId))
+                {
+                    context.Models.Add(modelToAdd);
+                }
+            }
 
             context.SaveChanges();
         }

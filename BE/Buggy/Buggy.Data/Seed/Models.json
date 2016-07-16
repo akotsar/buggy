@@ -4,14 +4,30 @@
     "name": "Veyron",
     "image": "veyron.jpg",
     "description": "Buggatti Veyron Description",
-    "votes": 234
+    "votes": 234,
+    "comments": [
+      {
+        "datePosted": "2016-07-10T11:00:00Z",
+        "comment": "A very good car."
+      },
+      {
+        "datePosted": "2016-07-11T11:00:00Z",
+        "comment": "Love it!"
+      }
+    ] 
   },
   {
     "makeName": "Lancia",
     "name": "Delta",
     "image": "lancia-delta.jpg",
     "description": "Lancia Delta Description",
-    "votes": 543
+    "votes": 543,
+    "comments": [
+      {
+        "datePosted": "2016-07-10T11:00:00Z",
+        "comment": "The legend"
+      }
+    ]
   },
   {
     "makeName": "Lancia",

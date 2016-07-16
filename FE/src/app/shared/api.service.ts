@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   public getCurrentUser(token: string): Observable<User> {
-    return this.http.get(this._serviceUrl + '/api/user/current', { headers: this.getAuthHeaders(token) })
+    return this.http.get(this._serviceUrl + '/api/users/current', { headers: this.getAuthHeaders(token) })
       .map(res => <User>res.json());
   }
 
