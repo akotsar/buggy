@@ -1,0 +1,29 @@
+<header>
+  <nav class="navbar navbar-full navbar-dark bg-inverse">
+    <a class="navbar-brand" [routerLink]="['']">Buggy Rating</a>
+    <my-login></my-login>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="display-3">Buggy<br/>Cars<br/>Rating</h1>
+        </div>
+        <div class="col-md-8"><img src="/img/header-car.gif" class="img-fluid"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container" role="main">
+  <main class="row">
+    <router-outlet></router-outlet>
+  </main>
+
+  <hr/>
+
+  <footer class="footer row">
+    <p>&copy; 2016 Buggy Software, Inc.</p>
+  </footer>
+</div>

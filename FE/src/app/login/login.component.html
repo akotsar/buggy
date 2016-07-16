@@ -1,0 +1,9 @@
+<form class="form-inline pull-xs-right" *ngIf="!loginService.isLoggedIn">
+    <input [(ngModel)]="login" class="form-control form-control-sm input-sm" type="text" placeholder="Login">
+    <input [(ngModel)]="password" class="form-control form-control-sm" type="password">
+    <button class="btn btn-success" type="submit" (click)="doLogin()">Login</button>
+</form>
+
+<div class="pull-xs-right" *ngIf="loginService.isLoggedIn">
+    <p class="nav navbar-text">Hi, {{ loginService.userName }}</p>
+</div>
