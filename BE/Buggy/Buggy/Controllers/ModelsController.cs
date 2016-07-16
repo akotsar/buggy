@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,14 +10,14 @@ using Buggy.Models.Cars;
 
 namespace Buggy.Controllers
 {
-    [RoutePrefix("api/cars")]
-    public class CarsController : ApiController
+    [RoutePrefix("api/models")]
+    public class ModelsController : ApiController
     {
         private static readonly int PageSize = 2;
 
         private readonly BuggyContext _db;
 
-        public CarsController(BuggyContext db)
+        public ModelsController(BuggyContext db)
         {
             _db = db;
         }

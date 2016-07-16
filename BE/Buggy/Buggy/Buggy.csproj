@@ -160,7 +160,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Auth\BuggyAuthorizationServerProvider.cs" />
-    <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\ModelsController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Dto\CurrentUserInfo.cs" />

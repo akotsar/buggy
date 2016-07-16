@@ -40,7 +40,7 @@ export class ApiService {
   }
 
   public getModels(page?: number, orderBy?: string, makeId?: number): Observable<Models> {
-    let url = this._serviceUrl + '/api/cars?' + this.urlEncode({
+    let url = this._serviceUrl + '/api/models?' + this.urlEncode({
       page: page,
       orderBy: orderBy,
       makeId: makeId
