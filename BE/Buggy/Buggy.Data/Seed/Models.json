@@ -1,0 +1,23 @@
+﻿[
+  {
+    "makeName": "Bugatti",
+    "name": "Veyron",
+    "image": "veyron.jpg",
+    "description": "Buggatti Veyron Description",
+    "votes": 234
+  },
+  {
+    "makeName": "Lancia",
+    "name": "Delta",
+    "image": "lancia-delta.jpg",
+    "description": "Lancia Delta Description",
+    "votes": 543
+  },
+  {
+    "makeName": "Lancia",
+    "name": "Stratos",
+    "image": "lancia-stratos.jpg",
+    "description": "Lancia Stratos Description",
+    "votes": 123
+  }
+]

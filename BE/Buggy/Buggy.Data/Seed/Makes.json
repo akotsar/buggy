@@ -1,0 +1,12 @@
+﻿[
+  {
+    "name": "Bugatti",
+    "image": "bugatti.jpg",
+    "description": "Buggatti Description"
+  },
+  {
+    "name": "Lancia",
+    "image": "lancia-logo.jpg",
+    "description": "Lancia Description"
+  }
+]
