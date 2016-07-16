@@ -17,10 +17,10 @@
             <span class="nav-link disabled">Hi, {{ loginService.user.firstName }}</span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['profile']">Profile</a>
+            <a class="btn nav-link" [routerLink]="['profile']">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" (click)="doLogout()">Logout</a>
+            <a class="btn nav-link" (click)="doLogout()">Logout</a>
         </li>
     </ul>
 </div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { User } from './models/user';
 import { Dashboard } from './models/dashboard/dashboard';
+import { Models } from './models/models';
 
 @Injectable()
 export class ApiService {
@@ -38,6 +39,17 @@ export class ApiService {
       .map(res => <Dashboard>res.json());
   }
 
+  public getModels(page?: number, orderBy?: string, makeId?: number): Observable<Models> {
+    let url = this._serviceUrl + '/api/cars?' + this.urlEncode({
+      page: page,
+      orderBy: orderBy,
+      makeId: makeId
+    });
+
+    return this.http.get(url)
+      .map(res => <Models>res.json());
+  }
+
   private getAuthHeaders(token: string): Headers {
     return new Headers({
       'Authorization': 'Bearer ' + token
@@ -47,7 +59,7 @@ export class ApiService {
   private urlEncode(obj: Object): string {
       let urlSearchParams = new URLSearchParams();
       for (let key in obj) {
-          if (!obj.hasOwnProperty(key)) {
+          if (!obj.hasOwnProperty(key) || obj[key] === undefined) {
             continue;
           }
 
