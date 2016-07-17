@@ -1,9 +1,12 @@
 import { enableProdMode } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import { AppComponent } from './app/app.component';
 import { APP_ROUTER_PROVIDERS } from './app/app.routes';
+import { ApiService } from './app/shared/api.service';
+import { LOGIN_SERVICE_PROVIDER } from './app/shared/login.service';
 
 // depending on the env mode, enable prod mode or add debugging modules
 if (process.env.ENV === 'build') {
@@ -13,6 +16,10 @@ if (process.env.ENV === 'build') {
 bootstrap(AppComponent, [
     // These are dependencies of our App
     HTTP_PROVIDERS,
-    APP_ROUTER_PROVIDERS
+    APP_ROUTER_PROVIDERS,
+    disableDeprecatedForms(),
+    provideForms(),
+    ApiService,
+    LOGIN_SERVICE_PROVIDER
   ])
   .catch(err => console.error(err));

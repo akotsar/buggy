@@ -170,6 +170,7 @@
     <Compile Include="Dto\ModelItem.cs" />
     <Compile Include="Dto\ModelsResponse.cs" />
     <Compile Include="Dto\NewUserRequest.cs" />
+    <Compile Include="Dto\UserProfile.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

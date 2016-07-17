@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -25,6 +27,7 @@ namespace Buggy.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("")]
         public void CreateUser(NewUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -61,6 +64,79 @@ namespace Buggy.Controllers
             }
 
             return new CurrentUserInfo { FirstName = user.FirstName, LastName = user.LastName };
+        }
+
+        [HttpGet]
+        [Route("profile")]
+        public async Task<UserProfile> GetProfile()
+        {
+            var userId = Request.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId);
+            return new UserProfile(user);
+        }
+
+        [HttpPut]
+        [Route("profile")]
+        public async Task UpdateProfile(UserProfile profile)
+        {
+            if (profile == null)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Profile data is missing."));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));
+            }
+
+            // Injecting some bugs
+            if (Regex.IsMatch(profile.Age ?? string.Empty, @"[^A-Za-z0-9]"))
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Get a candy ;)"));
+            }
+
+            if (profile.Hobby == "Knitting")
+            {
+                throw new InvalidOperationException("Knitting cannot be a hobby!");
+            }
+
+            if (profile.Gender?.Length > 10)
+            {
+                throw new InvalidOperationException("That's one weird gender!");
+            }
+
+            var userId = Request.GetUserId();
+            var user = await _userManager.FindByIdAsync(userId);
+
+            // Checking password before any modification.
+            if (!string.IsNullOrEmpty(profile.NewPassword))
+            {
+                if (await _userManager.FindAsync(user.UserName, profile.CurrentPassword ?? string.Empty) == null)
+                {
+                    throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Current password is incorrect. Unable to change password."));
+                }
+            }
+
+            profile.UpdateUser(user);
+            var res = await _userManager.UpdateAsync(user);
+            if (!res.Succeeded)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", res.Errors)));
+            }
+
+            // Changing password.
+            if (!string.IsNullOrEmpty(profile.NewPassword))
+            {
+                res = await _userManager.ChangePasswordAsync(userId, profile.CurrentPassword, profile.NewPassword);
+                if (!res.Succeeded)
+                {
+                    throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", res.Errors)));
+                }
+            }
         }
     }
 }

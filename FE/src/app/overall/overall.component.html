@@ -33,9 +33,9 @@
 </div>
 <div class="row my-pager">
     <div class="pull-xs-right">
-        <a (click)="prevPage()" [ngClass]="{btn: true, disabled: page <= 1}">&laquo;</a>
+        <a (click)="prevPage()" class="btn" [class.disabled]="page <= 1">&laquo;</a>
         <input type="text" class="form-control input-xs" [(ngModel)]="enteredPage" (keypress)="pageNumberPress($event)" />
-        <a (click)="nextPage()" [ngClass]="{btn: true, disabled: page >= totalPages}">&raquo;</a>
+        <a (click)="nextPage()" class="btn" [class.disabled]="page >= totalPages">&raquo;</a>
         page {{ page }} of {{ totalPages }}
     </div>
 </div>

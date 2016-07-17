@@ -1,1 +1,12 @@
 // styles in src/style directory are applied to the whole page
+.my-form .ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.my-form .ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.my-form .result {
+    margin-top: 15px;
+}

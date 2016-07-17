@@ -1,12 +1,11 @@
-
 <div class="pull-xs-right" *ngIf="!loginService.getIsLoggedIn()">
-    <form class="form-inline" >
-        <div [ngClass]="{'form-group': true, 'has-danger': isInvalidLogin}">
+    <form class="form-inline" (ngSubmit)="doLogin(loginForm.value)" #loginForm="ngForm">
+        <div class="form-group" [class.has-danger]="isInvalidLogin">
             <span class="label label-warning" *ngIf="isInvalidLogin">Invalid username/password</span>
-            <input [(ngModel)]="login" required class="form-control form-control-sm input-sm" type="text" placeholder="Login">
-            <input [(ngModel)]="password" required class="form-control form-control-sm" type="password">
+            <input ngModel name="login" required class="form-control form-control-sm input-sm" type="text" placeholder="Login">
+            <input ngModel name="password" required class="form-control form-control-sm" type="password">
         </div>
-        <button class="btn btn-success" type="submit" (click)="doLogin()" [disabled]="isLoggingIn">Login</button>
+        <button class="btn btn-success" type="submit" [disabled]="isLoggingIn">Login</button>
         <a class="btn btn-success-outline" [routerLink]="['register']">Register</a>
     </form>
 </div>
@@ -17,10 +16,10 @@
             <span class="nav-link disabled">Hi, {{ loginService.user.firstName }}</span>
         </li>
         <li class="nav-item">
-            <a class="btn nav-link" [routerLink]="['profile']">Profile</a>
+            <a class="nav-link" [routerLink]="['profile']">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="btn nav-link" (click)="doLogout()">Logout</a>
+            <a class="nav-link" href="javascript:void(0)" (click)="doLogout()">Logout</a>
         </li>
     </ul>
 </div>

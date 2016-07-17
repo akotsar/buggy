@@ -21,6 +21,6 @@ import '../style/app.scss';
 })
 export class AppComponent {
 
-  constructor(private api: ApiService) {
+  constructor() {
   }
 }

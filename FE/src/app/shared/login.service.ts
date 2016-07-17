@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { provide, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
@@ -6,7 +6,17 @@ import { User } from './models/user';
 
 @Injectable()
 export class LoginService {
+    private static instance: LoginService = null;
+
     public user: User;
+
+    public static getInstance(api: ApiService): LoginService {
+        if (LoginService.instance === null) {
+            LoginService.instance = new LoginService(api);
+        }
+
+        return LoginService.instance;
+    }
 
     constructor(
         private api: ApiService
@@ -56,3 +66,12 @@ export class LoginService {
         localStorage.removeItem('token');
     }
 }
+
+export const LOGIN_SERVICE_PROVIDER = [
+  provide(LoginService, {
+    deps: [ApiService],
+    useFactory: (api: ApiService): LoginService => {
+      return LoginService.getInstance(api);
+    }
+  })
+];
