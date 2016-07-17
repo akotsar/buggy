@@ -1,4 +1,4 @@
-import { provide, Injectable } from '@angular/core';
+import { provide, Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
@@ -8,7 +8,9 @@ import { User } from './models/user';
 export class LoginService {
     private static instance: LoginService = null;
 
-    public user: User;
+    @Output() loggedIn = new EventEmitter();
+    @Output() loggedOut = new EventEmitter();
+    user: User;
 
     public static getInstance(api: ApiService): LoginService {
         if (LoginService.instance === null) {
@@ -43,6 +45,7 @@ export class LoginService {
     public logout() {
         this.user = null;
         this.clearToken();
+        this.loggedOut.emit({});
     }
 
     private updateUser(token: string): Observable<User> {
@@ -50,6 +53,7 @@ export class LoginService {
             .map(user => {
                 this.setToken(token);
                 this.user = user;
+                this.loggedIn.emit(user);
                 return user;
             })
             .catch(err => {

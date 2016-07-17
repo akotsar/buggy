@@ -1,18 +1,22 @@
 <header>
   <nav class="navbar navbar-full navbar-dark bg-inverse">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['']">Buggy Rating</a>
+      <a class="navbar-brand" [routerLink]="[broken.isHomeLinkBroken() ? '/broken' : '/']">Buggy Rating</a>
       <my-login></my-login>
     </div>
   </nav>
 
-  <div class="jumbotron">
+  <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h1 class="display-3">Buggy<br/>Cars<br/>Rating</h1>
+          <h1 class="display-4">Buggy<br/>Cars<br/>Rating</h1>
         </div>
-        <div class="col-md-8"><img src="/img/header-car.gif" class="img-fluid"></div>
+        <div class="col-md-8">
+          <div class="center-block">
+            <img src="/img/header-car.gif" class="img-fluid">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +29,19 @@
 
   <hr/>
 
-  <footer class="footer row">
-    <p>&copy; 2016 Buggy Software, Inc.</p>
+  <footer class="footer">
+    <div class="container">
+      <div class="pull-xs-right">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook">
+          <img src="/img/FB-f-Logo__blue_29.png" />
+        </a>
+
+        <a [href]="broken.isTwitterBroken() ? 'https://www.twitter-broken.com/' : 'https://www.twitter.com'" target="_blank" title="Twitter">
+          <img src="/img/twitter.png" />
+        </a>
+      </div>
+
+      <p>&copy; 2016 Buggy Software, Inc.</p>
+    </div>
   </footer>
 </div>

@@ -164,13 +164,16 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Dto\CurrentUserInfo.cs" />
+    <Compile Include="Dto\Comment.cs" />
     <Compile Include="Dto\Dashboard\Dashboard.cs" />
     <Compile Include="Dto\Dashboard\DashboardMake.cs" />
     <Compile Include="Dto\Dashboard\DashboardModel.cs" />
+    <Compile Include="Dto\ModelDetails.cs" />
     <Compile Include="Dto\ModelItem.cs" />
     <Compile Include="Dto\ModelsResponse.cs" />
     <Compile Include="Dto\NewUserRequest.cs" />
     <Compile Include="Dto\UserProfile.cs" />
+    <Compile Include="Dto\VoteRequest.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

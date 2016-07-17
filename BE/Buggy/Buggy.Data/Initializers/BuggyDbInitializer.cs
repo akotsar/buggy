@@ -8,7 +8,7 @@ using System.Reflection;
 using Buggy.Data.Seed;
 using Buggy.Data.Users;
 using Buggy.Models.Cars;
-using Buggy.Models.Comments;
+using Buggy.Models.Votes;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -65,13 +65,13 @@ namespace Buggy.Data.Initializers
                 modelToAdd.Make = makes.SingleOrDefault(x => x.Name == model.MakeName)
                     ?? existingMakes.Single(x => x.Name == model.MakeName);
 
-                modelToAdd.Comments =
+                modelToAdd.UserVotes =
                     (model.Comments ?? Enumerable.Empty<SeedComment>()).Select(
                         c =>
-                        new UserComment
+                        new UserVote
                         {
                             Comment = c.Comment,
-                            DatePosted = c.DatePosted,
+                            DateVoted = c.DatePosted,
                             UserId = Guid.NewGuid().ToString()
                         }).ToList();
 

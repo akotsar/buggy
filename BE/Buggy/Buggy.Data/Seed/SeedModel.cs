@@ -10,9 +10,13 @@ namespace Buggy.Data.Seed
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public string Image { get; set; }
 
         public float EngineVol { get; set; }
+
+        public int MaxSpeed { get; set; }
 
         public int Votes { get; set; }
 
@@ -22,7 +26,16 @@ namespace Buggy.Data.Seed
 
         public Model ToModel()
         {
-            return new Model { Id = Id, Name = Name, Image = Image, EngineVol = EngineVol, Votes = Votes };
+            return new Model
+                   {
+                       Id = Id,
+                       Name = Name,
+                       Description = Description,
+                       Image = Image,
+                       EngineVol = EngineVol,
+                       MaxSpeed = MaxSpeed,
+                       Votes = Votes
+                   };
         }
     }
 }

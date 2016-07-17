@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { ApiService } from '../shared/api.service';
 import { Model } from '../shared/models/model';
+import { BrokenService } from '../shared/broken.service';
 
 import './overall.component.scss';
 
@@ -14,7 +15,7 @@ import './overall.component.scss';
     directives: [ROUTER_DIRECTIVES],
     providers: [ApiService]
 })
-export class OverallComponent implements OnInit {
+export class OverallComponent implements OnInit, OnDestroy {
     loading = true;
     page = 1;
     orderby: string;
@@ -23,11 +24,17 @@ export class OverallComponent implements OnInit {
     enteredPage: number;
 
     constructor(
-        private api: ApiService
+        private api: ApiService,
+        private broken: BrokenService
     ) { }
 
     ngOnInit() {
+        this.broken.breakTwitter();
         this.updateData();
+    }
+
+    ngOnDestroy() {
+        this.broken.reset();
     }
 
     sortBy(field: string) {
@@ -47,6 +54,15 @@ export class OverallComponent implements OnInit {
 
     pageNumberPress(ev: any) {
         if (ev.keyCode === 13 && !isNaN(parseFloat(<any>this.enteredPage))) {
+            // Intentional bug:
+            if (this.enteredPage === 1 || this.enteredPage === this.totalPages) {
+                return;
+            }
+
+            if (this.enteredPage > this.totalPages) {
+                this.enteredPage = this.totalPages;
+            }
+
             this.page = this.enteredPage;
             this.updateData();
         }
@@ -55,10 +71,6 @@ export class OverallComponent implements OnInit {
     private updateData() {
         if (this.page <= 1) {
              this.page = 1;
-        }
-
-        if (this.page > this.totalPages) {
-            this.page = this.totalPages;
         }
 
         this.enteredPage = this.page;

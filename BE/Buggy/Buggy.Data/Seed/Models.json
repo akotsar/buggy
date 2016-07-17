@@ -4,6 +4,8 @@
     "name": "Veyron",
     "image": "veyron.jpg",
     "description": "Buggatti Veyron Description",
+    "engineVol": 8.0,
+    "maxSpeed": 427,
     "votes": 234,
     "comments": [
       {
@@ -14,13 +16,15 @@
         "datePosted": "2016-07-11T11:00:00Z",
         "comment": "Love it!"
       }
-    ] 
+    ]
   },
   {
     "makeName": "Lancia",
     "name": "Delta",
     "image": "lancia-delta.jpg",
     "description": "Lancia Delta Description",
+    "engineVol": 2.0,
+    "maxSpeed": 220,
     "votes": 543,
     "comments": [
       {
@@ -34,6 +38,8 @@
     "name": "Stratos",
     "image": "lancia-stratos.jpg",
     "description": "Lancia Stratos Description",
+    "engineVol": 4.3,
+    "maxSpeed": 232,
     "votes": 123
   }
 ]

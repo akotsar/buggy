@@ -1,41 +1,46 @@
 <img class="center-block" src="/img/spin.gif" *ngIf="loading">
-<div class="row" *ngIf="!loading">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>&nbsp;</th>
-                <th><a (click)="sortBy('make')">Make</a></th>
-                <th><a (click)="sortBy('name')">Model</a></th>
-                <th><a (click)="sortBy('rank')">Rank</a></th>
-                <th><a (click)="sortBy('votes')">Votes</a></th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let model of models">
-                <td>
-                    <a [routerLink]="['/model', model.id]">
-                        <img class="img-fluid" [src]="'/img/cars/' + model.image" title="{{ model.make + ' ' + model.name }}">
-                    </a>
-                </td>
-                <td><a [routerLink]="['/make', model.makeId]">{{ model.make }}</a></td>
-                <td><a [routerLink]="['/model', model.id]">{{ model.name }}</a></td>
-                <td>{{ model.rank }}</td>
-                <td>{{ model.votes }}</td>
-                <td>
-                    <div *ngFor="let comment of model.comments">
-                        <p>{{ comment }}</p>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="row my-pager">
-    <div class="pull-xs-right">
-        <a (click)="prevPage()" class="btn" [class.disabled]="page <= 1">&laquo;</a>
-        <input type="text" class="form-control input-xs" [(ngModel)]="enteredPage" (keypress)="pageNumberPress($event)" />
-        <a (click)="nextPage()" class="btn" [class.disabled]="page >= totalPages">&raquo;</a>
-        page {{ page }} of {{ totalPages }}
+<div class="container" *ngIf="!loading">
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th><a (click)="sortBy('make')">Make</a></th>
+                    <th><a (click)="sortBy('name')">Model</a></th>
+                    <th><a (click)="sortBy('rank')">Rank</a></th>
+                    <th><a (click)="sortBy('votes')">Votes</a></th>
+                    <th><a (click)="sortBy('engine')">Engine</a></th>
+                    <th class="comments">Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let model of models">
+                    <td>
+                        <a [routerLink]="['/model', model.id]">
+                            <img class="img-thumbnail" [src]="'/img/cars/' + model.image" title="{{ model.make + ' ' + model.name }}">
+                        </a>
+                    </td>
+                    <td><a [routerLink]="['/make', model.makeId]">{{ model.make }}</a></td>
+                    <td><a [routerLink]="['/model', model.id]">{{ model.name }}</a></td>
+                    <td>{{ model.rank }}</td>
+                    <td>{{ model.votes }}</td>
+                    <td>{{ model.engineVol | number:'.1-2' }}l</td>
+                    <td>
+                        <div *ngFor="let comment of model.comments">
+                            <p class="comment">{{ comment }}</p>
+                        </div>
+                        <a [routerLink]="['/model', model.id]" *ngIf="model.totalComments > 3">View more</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row my-pager">
+        <div class="pull-xs-right">
+            <a (click)="prevPage()" class="btn" [class.disabled]="page <= 1">&laquo;</a>
+            <input type="text" class="form-control input-xs" [(ngModel)]="enteredPage" (keypress)="pageNumberPress($event)" />
+            <a (click)="nextPage()" class="btn">&raquo;</a>
+            page {{ page }} of {{ totalPages }}
+        </div>
     </div>
 </div>

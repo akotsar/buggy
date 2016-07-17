@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from './models/user';
 import { Dashboard } from './models/dashboard/dashboard';
 import { Models } from './models/models';
+import { ModelDetails } from './models/model-details';
 import { RegistrationRequest } from './models/register/registration-request';
 import { UserProfile } from './models/user-profile';
 
@@ -53,6 +54,16 @@ export class ApiService {
       .map(res => <Models>res.json());
   }
 
+  public getModel(id: number, token?: string): Observable<ModelDetails> {
+    return this.http.get(this._serviceUrl + '/api/models/' + id, { headers: this.getAuthHeaders(token) })
+      .map(res => <ModelDetails>res.json());
+  }
+
+  public vote(id: number, comment: string, token: string): Observable<any> {
+    return this.http.post(this._serviceUrl + `/api/models/${id}/vote`, { comment: comment }, { headers: this.getAuthHeaders(token) })
+      .catch(err => this.handleError<boolean>(err));
+  }
+
   public register(req: RegistrationRequest): Observable<boolean> {
     return this.http.post(this._serviceUrl + '/api/users', req)
       .map(res => true)
@@ -70,10 +81,14 @@ export class ApiService {
       .catch(err => this.handleError<any>(err));
   }
 
-  private getAuthHeaders(token: string): Headers {
-    return new Headers({
-      'Authorization': 'Bearer ' + token
-    });
+  private getAuthHeaders(token?: string): Headers {
+    let headers = new Headers();
+
+    if (token !== undefined) {
+      headers.append('Authorization', 'Bearer ' + token);
+    }
+
+    return headers;
   }
 
   private urlEncode(obj: Object): string {

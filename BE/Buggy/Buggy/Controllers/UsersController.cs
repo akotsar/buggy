@@ -56,8 +56,12 @@ namespace Buggy.Controllers
         public async Task<CurrentUserInfo> GetCurrentUser()
         {
             var userId = Request.GetUserId();
-            var user = await _userManager.FindByIdAsync(userId);
+            if (userId == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
 
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
@@ -71,6 +75,11 @@ namespace Buggy.Controllers
         public async Task<UserProfile> GetProfile()
         {
             var userId = Request.GetUserId();
+            if (userId == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            }
+
             var user = await _userManager.FindByIdAsync(userId);
             return new UserProfile(user);
         }

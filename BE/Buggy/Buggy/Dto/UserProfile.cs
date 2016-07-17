@@ -9,6 +9,40 @@ namespace Buggy.Dto
 {
     public class UserProfile
     {
+        public string Username { get; set; }
+
+        [DisplayName("First Name")]
+        [Required]
+        [MaxLength(250)]
+        public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        [Required]
+        [MaxLength(250)]
+        public string LastName { get; set; }
+
+        [MaxLength(250)]
+        public string Gender { get; set; }
+
+        [MaxLength(250)]
+        public string Age { get; set; }
+
+        [MaxLength(500)]
+        public string Address { get; set; }
+
+        [MaxLength(250)]
+        public string Phone { get; set; }
+
+        [MaxLength(250)]
+        public string Hobby { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string CurrentPassword { get; set; }
+
+        [MaxLength(50)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string NewPassword { get; set; }
+
         public UserProfile()
         {
         }
@@ -24,32 +58,6 @@ namespace Buggy.Dto
             Phone = source.Phone;
             Hobby = source.Hobby;
         }
-
-        public string Username { get; set; }
-
-        [DisplayName("First Name")]
-        [Required]
-        public string FirstName { get; set; }
-
-        [DisplayName("Last Name")]
-        [Required]
-        public string LastName { get; set; }
-
-        public string Gender { get; set; }
-
-        public string Age { get; set; }
-
-        public string Address { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Hobby { get; set; }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string CurrentPassword { get; set; }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string NewPassword { get; set; }
 
         public void UpdateUser(User user)
         {

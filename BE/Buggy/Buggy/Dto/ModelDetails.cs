@@ -5,40 +5,36 @@ using Buggy.Models.Cars;
 
 namespace Buggy.Dto
 {
-    public class ModelItem
+    public class ModelDetails
     {
-        public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string Image { get; set; }
         public string Make { get; set; }
         public int MakeId { get; set; }
         public string MakeImage { get; set; }
         public int Votes { get; set; }
-        public int Rank { get; set; }
         public float EngineVol { get; set; }
-        public IList<string> Comments { get; set; }
-        public int TotalComments { get; set; }
+        public int MaxSpeed { get; set; }
+        public IList<Comment> Comments { get; set; }
+        public bool CanVote { get; set; }
 
-        public ModelItem()
+        public ModelDetails()
         {
         }
 
-        public ModelItem(Model source)
+        public ModelDetails(Model source, string userId)
         {
-            Id = source.Id;
             Name = source.Name;
+            Description = source.Description;
             Image = source.Image;
             Make = source.Make.Name;
             MakeId = source.MakeId;
             MakeImage = source.Make.Image;
             EngineVol = source.EngineVol;
+            MaxSpeed = source.MaxSpeed;
             Votes = source.Votes;
-            Comments = source.UserVotes
-                .Where(x => !string.IsNullOrEmpty(x.Comment))
-                .OrderByDescending(x => x.DateVoted)
-                .Select(x => x.Comment).Take(3).ToList();
-
-            TotalComments = source.UserVotes.Count(x => !string.IsNullOrEmpty(x.Comment));
+            CanVote = userId != null && source.UserVotes.All(v => v.UserId != userId);
         }
     }
 }
