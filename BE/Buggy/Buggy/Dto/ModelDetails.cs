@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Buggy.Models.Cars;
+using System.Collections.Generic;
 using System.Linq;
-
-using Buggy.Models.Cars;
 
 namespace Buggy.Dto
 {

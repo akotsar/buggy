@@ -1,41 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 
 using Buggy.Models.Cars;
 
 namespace Buggy.Data.Seed
 {
-    internal class SeedModel
+    [NotMapped]
+    internal class SeedModel : Model
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public string Image { get; set; }
-
-        public float EngineVol { get; set; }
-
-        public int MaxSpeed { get; set; }
-
-        public int Votes { get; set; }
-
         public string MakeName { get; set; }
 
         public IList<SeedComment> Comments { get; set; }
 
         public Model ToModel()
         {
-            return new Model
-                   {
-                       Id = Id,
-                       Name = Name,
-                       Description = Description,
-                       Image = Image,
-                       EngineVol = EngineVol,
-                       MaxSpeed = MaxSpeed,
-                       Votes = Votes
-                   };
+            var type = typeof(Model);
+            var model = new Model();
+            foreach (var prop in type.GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                if (prop.CanRead && prop.CanWrite)
+                {
+                    prop.SetValue(model, prop.GetValue(this));
+                }
+            }
+
+            return model;
         }
     }
 }

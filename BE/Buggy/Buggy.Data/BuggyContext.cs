@@ -1,9 +1,7 @@
 ﻿using System.Data.Entity;
-
 using Buggy.Data.Initializers;
 using Buggy.Data.Users;
 using Buggy.Models.Cars;
-
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Buggy.Data

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -57,15 +56,15 @@ namespace Buggy.Data.Initializers
                 .Where(x => existingMakes.All(e => e.Name != x.Name)).ToList();
             context.Makes.AddRange(makes);
 
-            var models = ReadSeedData<SeedModel[]>("Models.json");
+            var models = ReadSeedData<SeedModel[]>("Models.json")
+                .Where(x => existingModels.All(e => e.Name != x.Name || e.Make.Name != x.MakeName)).ToList();
+
             foreach (var model in models)
             {
-                var modelToAdd = model.ToModel();
-
-                modelToAdd.Make = makes.SingleOrDefault(x => x.Name == model.MakeName)
+                model.Make = makes.SingleOrDefault(x => x.Name == model.MakeName)
                     ?? existingMakes.Single(x => x.Name == model.MakeName);
 
-                modelToAdd.UserVotes =
+                model.UserVotes =
                     (model.Comments ?? Enumerable.Empty<SeedComment>()).Select(
                         c =>
                         new UserVote
@@ -75,10 +74,7 @@ namespace Buggy.Data.Initializers
                             UserId = Guid.NewGuid().ToString()
                         }).ToList();
 
-                if (existingModels.All(e => e.Name != modelToAdd.Name || e.MakeId != modelToAdd.MakeId))
-                {
-                    context.Models.Add(modelToAdd);
-                }
+                context.Models.Add(model.ToModel());
             }
 
             context.SaveChanges();
@@ -86,11 +82,12 @@ namespace Buggy.Data.Initializers
 
         private T ReadSeedData<T>(string name)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "Buggy.Data.Seed." + name;
+            var uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
+            var path = Path.Combine(
+                Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path)) ?? string.Empty,
+                "Seed");
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
+            using (StreamReader reader = new StreamReader(Path.Combine(path, name)))
             {
                 string stringData = reader.ReadToEnd();
                 return JsonConvert.DeserializeObject<T>(stringData);

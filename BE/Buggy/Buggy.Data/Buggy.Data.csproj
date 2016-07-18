@@ -72,8 +72,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Seed\Makes.json" />
-    <EmbeddedResource Include="Seed\Models.json" />
+    <None Include="Seed\Makes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Seed\Models.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Buggy.Models\Buggy.Models.csproj">
