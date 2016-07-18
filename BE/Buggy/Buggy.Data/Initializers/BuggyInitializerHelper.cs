@@ -70,7 +70,12 @@ namespace Buggy.Data.Initializers
             foreach (var model in models)
             {
                 model.Make = makes.SingleOrDefault(x => x.Name == model.MakeName)
-                    ?? existingMakes.Single(x => x.Name == model.MakeName);
+                    ?? existingMakes.SingleOrDefault(x => x.Name == model.MakeName);
+
+                if (model.Make == null)
+                {
+                    throw new InvalidOperationException($"Unable to find make '{model.MakeName}'.");
+                }
 
                 model.UserVotes =
                     (model.Comments ?? Enumerable.Empty<SeedComment>()).Select(

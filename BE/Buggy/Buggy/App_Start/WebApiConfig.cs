@@ -2,8 +2,7 @@
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
-
-using Buggy.App_Start;
+using Buggy.Filters;
 
 using Newtonsoft.Json.Serialization;
 
@@ -28,6 +27,8 @@ namespace Buggy
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            config.Filters.Add(new ElmahExceptionFilterAttribute());
         }
     }
 }

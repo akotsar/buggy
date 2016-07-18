@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Buggy.Data.Initializers
 {
@@ -9,8 +10,8 @@ namespace Buggy.Data.Initializers
             base.Seed(context);
 
             var helper = new BuggyInitializerHelper(context);
-            helper.CreateUsers().RunSynchronously();
-            helper.CreateCars().RunSynchronously();
+            Task.Factory.StartNew(() => helper.CreateUsers()).Unwrap().Wait();
+            Task.Factory.StartNew(() => helper.CreateCars()).Unwrap().Wait();
         }
     }
 }
