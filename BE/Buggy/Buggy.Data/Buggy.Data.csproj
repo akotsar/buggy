@@ -64,6 +64,7 @@
     <Compile Include="BuggyContext.cs" />
     <Compile Include="Identity\BuggyUserManager.cs" />
     <Compile Include="Initializers\BuggyDbInitializer.cs" />
+    <Compile Include="Initializers\BuggyInitializerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seed\SeedComment.cs" />
     <Compile Include="Seed\SeedModel.cs" />
