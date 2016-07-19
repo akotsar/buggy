@@ -12,7 +12,7 @@ import { UserProfile } from './models/user-profile';
 
 @Injectable()
 export class ApiService {
-  private _serviceUrl = 'http://localhost:8888';
+  private _serviceUrl = process.env.ENV === 'build' ? 'http://buggyapi.azurewebsites.net' : 'http://localhost:8888';
 
   constructor(
     private http: Http) {

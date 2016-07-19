@@ -3,6 +3,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { FORM_DIRECTIVES } from '@angular/forms';
 
 import { LoginService } from '../shared/login.service';
+import { BrokenService } from '../shared/broken.service';
 
 import './login.component.scss';
 
@@ -19,10 +20,12 @@ export class LoginComponent implements OnInit {
     isLoggingIn = false;
 
     constructor(
-        private loginService: LoginService
+        private loginService: LoginService,
+        private brokenService: BrokenService
     ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     doLogin(creds: any) {
         this.isInvalidLogin = false;
@@ -38,6 +41,10 @@ export class LoginComponent implements OnInit {
     }
 
     doLogout() {
+        if (this.brokenService.isLogoutBroken()) {
+            return;
+        }
+
         this.loginService.logout();
     }
 }

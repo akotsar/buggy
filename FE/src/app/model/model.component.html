@@ -13,7 +13,9 @@
         </div>
         <div class="col-md-6">
             <div class="card-block">
-                <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
+                <a [routerLink]="['/']">
+                    <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
+                </a>
             </div>
         </div>
         <div class="col-md-4">

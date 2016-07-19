@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getDashboard()
+     this.api.getDashboard()
       .subscribe(d => {
         this.dashboard = d;
         this.loading = false;

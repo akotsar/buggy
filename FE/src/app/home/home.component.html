@@ -2,7 +2,7 @@
 <div class="row" *ngIf="!loading">
   <div class="col-md-4">
     <div class="card">
-      <h2 class="card-header">Popular Make</h2>
+      <h2 class="card-header text-xs-center">Popular Make</h2>
       <a [routerLink]="['make', dashboard.make.id]">
         <img class="img-fluid center-block" [src]="'/img/cars/' + dashboard.make.image" title="{{ dashboard.make.name }}">
       </a>
@@ -13,7 +13,7 @@
   </div>
   <div class="col-md-4">
     <div class="card">
-      <h2 class="card-header">Popular Model</h2>
+      <h2 class="card-header text-xs-center">Popular Model</h2>
       <a [routerLink]="['model', dashboard.model.id]">
         <img class="img-fluid center-block" [src]="'/img/cars/' + dashboard.model.image" title="{{ dashboard.model.name }}">
       </a>
@@ -24,10 +24,12 @@
   </div>
   <div class="col-md-4">
     <div class="card">
-      <h2 class="card-header">Overall Rating</h2>
+      <h2 class="card-header text-xs-center">Overall Rating</h2>
+      <a [routerLink]="['/overall']">
+        <img class="img-fluid center-block" src="/img/overall.jpg">
+      </a>
       <div class="card-block">
-        <p class="card-text">A list of all registered models.</p>
-        <p><a class="btn btn-primary" [routerLink]="['overall']" role="button">View details &raquo;</a></p>
+        <h3>A list of all registered models.</h3>
       </div>
     </div>
   </div>

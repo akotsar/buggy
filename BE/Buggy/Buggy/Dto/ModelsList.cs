@@ -36,15 +36,27 @@ namespace Buggy.Dto
                     break;
 
                 case "votes":
-                    query = query.OrderBy(x => x.Model.Votes);
+                    query = query.OrderByDescending(x => x.Model.Votes);
+                    break;
+
+                case "rank":
+                    query = query.OrderBy(x => x.Rank.ToString(CultureInfo.InvariantCulture));
                     break;
 
                 case "engine":
                     query = query.OrderBy(x => x.Model.EngineVol);
                     break;
 
+                case "random":
+                    var rnd = new Random();
+                    query = query
+                        .Select(x => new { x, rnd = rnd.Next() })
+                        .OrderBy(x => x.rnd)
+                        .Select(x => x.x);
+                    break;
+
                 default:
-                    query = query.OrderBy(x => x.Rank.ToString(CultureInfo.InvariantCulture));
+                    query = query.OrderByDescending(x => x.Model.Votes);
                     break;
             }
 

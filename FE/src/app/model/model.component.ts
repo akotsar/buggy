@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { ModelDetails } from '../shared/models/model-details';
-import { BrokenService } from '../shared/broken.service';
 import { LoginService } from '../shared/login.service';
 import { ApiService } from '../shared/api.service';
 import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
@@ -15,7 +14,6 @@ import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
     pipes: [ShowdownPipe]
 })
 export class ModelComponent implements OnInit, OnDestroy {
-    private idSub: any;
     private loginSub: any;
     private logoutSub: any;
 
@@ -26,15 +24,13 @@ export class ModelComponent implements OnInit, OnDestroy {
 
     constructor(
         private route: ActivatedRoute,
-        private broken: BrokenService,
         private login: LoginService,
         private api: ApiService
     ) {
-        this.broken.breakHomeLink();
      }
 
     ngOnInit() {
-        this.idSub = this.route.params
+        this.route.params
             .subscribe(params => {
                 this.id = params['id'];
                 this.refresh();
@@ -45,10 +41,8 @@ export class ModelComponent implements OnInit, OnDestroy {
      }
 
      ngOnDestroy() {
-         this.idSub.unsubscribe();
          this.loginSub.unsubscribe();
          this.logoutSub.unsubscribe();
-         this.broken.reset();
      }
 
      onVote(comment: string) {

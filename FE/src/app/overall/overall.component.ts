@@ -30,6 +30,7 @@ export class OverallComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.broken.breakTwitter();
+        this.broken.breakLogout();
         this.updateData();
     }
 

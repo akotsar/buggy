@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
+import { BrokenService } from '../shared/broken.service';
 import { PagerComponent } from '../shared/pager/pager.component';
 import { MakeDetails } from '../shared/models/make-details';
 import { ApiService } from '../shared/api.service';
@@ -13,7 +14,7 @@ import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
     directives: [ROUTER_DIRECTIVES, PagerComponent],
     pipes: [ShowdownPipe]
 })
-export class MakeComponent implements OnInit {
+export class MakeComponent implements OnInit, OnDestroy {
     private _id: number;
 
     make: MakeDetails;
@@ -22,8 +23,11 @@ export class MakeComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private api: ApiService
-    ) { }
+        private api: ApiService,
+        private broken: BrokenService
+    ) {
+        this.broken.breakHomeLink();
+    }
 
     ngOnInit() {
         this.route.params
@@ -34,7 +38,15 @@ export class MakeComponent implements OnInit {
           });
     }
 
+    ngOnDestroy() {
+         this.broken.reset();
+     }
+
     sortBy(field: string) {
+        if (!field) {
+            return;
+        }
+
         this.orderby = field;
         this.updateData();
     }

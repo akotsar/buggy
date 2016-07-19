@@ -6,7 +6,9 @@
             <div class="card-block">
                 <div class="container">
                     <div class="col-md-3">
-                        <img class="img-fluid" [src]="'/img/cars/' + make.image" title="{{ make.name }}">
+                        <a href="javascript:void(0)">
+                            <img class="img-fluid" [src]="'/img/cars/' + make.image" title="{{ make.name }}">
+                        </a>
                     </div>
                     <div class="col-md-9">
                         <div [innerHTML]="make.description | myShowdown"></div>
@@ -22,9 +24,9 @@
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
-                            <th><a (click)="sortBy('name')">Model</a></th>
-                            <th><a (click)="sortBy('rank')">Rank</a></th>
-                            <th><a (click)="sortBy('votes')">Votes</a></th>
+                            <th><a (click)="sortBy('')">Model</a></th>
+                            <th><a (click)="sortBy('')">Rank</a></th>
+                            <th><a (click)="sortBy('random')">Votes</a></th>
                             <th class="comments">Comments</th>
                         </tr>
                     </thead>
