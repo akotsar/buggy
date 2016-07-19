@@ -5,11 +5,13 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { PagerComponent } from '../shared/pager/pager.component';
 import { MakeDetails } from '../shared/models/make-details';
 import { ApiService } from '../shared/api.service';
+import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
 
 @Component({
     selector: 'my-make',
     templateUrl: './make.component.html',
-    directives: [ROUTER_DIRECTIVES, PagerComponent]
+    directives: [ROUTER_DIRECTIVES, PagerComponent],
+    pipes: [ShowdownPipe]
 })
 export class MakeComponent implements OnInit {
     private _id: number;

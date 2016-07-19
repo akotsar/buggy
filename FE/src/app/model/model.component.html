@@ -55,7 +55,7 @@
     <div class="row">
         <hr/>
         <h3>{{ model.name }}</h3>
-        <p>{{ model.description }}</p>
+        <div [innerHTML]="model.description | myShowdown"></div>
     </div>
     <div class="row" *ngIf="model.comments.length > 0">
         <table class="table">

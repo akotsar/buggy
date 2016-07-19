@@ -5,12 +5,14 @@ import { ModelDetails } from '../shared/models/model-details';
 import { BrokenService } from '../shared/broken.service';
 import { LoginService } from '../shared/login.service';
 import { ApiService } from '../shared/api.service';
+import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
 
 @Component({
     moduleId: module.id,
     selector: 'my-model',
     templateUrl: 'model.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    pipes: [ShowdownPipe]
 })
 export class ModelComponent implements OnInit, OnDestroy {
     private idSub: any;
