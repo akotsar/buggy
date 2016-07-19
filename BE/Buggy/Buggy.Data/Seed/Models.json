@@ -235,7 +235,7 @@
     "image": "Diablo.jpg",
     "description": "This last **Diablo** in a decade of flamboyant—some daresay outrageous—sports cars first introduced in 1990 is certainly the best Diablo.\n\nThe VT is, curiously, a very high-powered four-wheel-drive beast. Situated amidships is the biggest, baddest V-12 engine we've ever tested in a Diablo. For this 2000 model, Lamborghini has lengthened the stroke by 0.16 inch, lightened the crankshaft, used lighter and stronger titanium connecting rods, and updated the old 16-bit engine-control system to a more powerful 32-bit unit. As a result, peak engine output has been promoted to 543 horsepower at 7100 rpm, 20 more than found in the last Diablo. Torque is up 11 pound-feet to 457 at 5800 rpm. \n\nHorsepower freaks take note: *This latest Diablo now has more horsepower than four four-cylinder Toyota Camrys.*",
     "engineVol": 6,
-    "maxSpeed": 325,
+    "maxSpeed": 25,
     "votes": 999,
     "comments": [
       {
@@ -277,7 +277,7 @@
   {
     "makeName": "Lancia",
     "name": "Delta",
-    "image": "delta.jpg",
+    "image": "lancia-delta.jpg",
     "description": "If your a crazy Italian Slalom, Giant Slalom and Super G skier, 5 time Olympic medal winner (3 gold), what car would you buy? Well Alberto Tomba was all of those and he picked this exhilarating machine, a 1992 **Lancia Delta Integrale HF Evo** 1 that was as equally happy on the snow as he was. \n\nThis particular model was a bespoke car built for him with many of the Evo2 upgrades that were available and a limited edition numbered 96 of 486. It has covered just 11469kms from new and is like new. A true drivers machine and a very angry little car!",
     "engineVol": 2,
     "maxSpeed": 220,
@@ -296,11 +296,11 @@
     "description": "Distinctive and intriguing new supermini, but Twinair engine is at odds with **Ypsilon**'s luxury positioning. \n\nThe Twinair, while impressively torquey and incredibly willing to work seamlessly around to the rev limiter, also has a very vocal, thrumming soundtrack. \nThere’s no doubt that this remarkable little motor rather encourages the driver to press-on, swapping up and down the ’box to exploit the performance. \nTo that end, the shift action is pretty (although not completely) clean and the lever very well-placed.",
     "engineVol": 1.25,
     "maxSpeed": 183,
-    "votes": 543,
+    "votes": 103,
     "comments": [
       {
         "datePosted": "2016-07-10T11:00:00Z",
-        "comment": "The legend"
+        "comment": "A small funny car"
       }
     ]
   },
