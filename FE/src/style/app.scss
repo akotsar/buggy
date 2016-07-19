@@ -10,3 +10,18 @@
 .my-form .result {
     margin-top: 15px;
 }
+
+table.cars img { width: 150px; }
+
+table.cars th a { cursor: pointer; }
+
+table.cars p.comment {
+    max-width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+table.cars .comments {
+    width: 250px;
+}

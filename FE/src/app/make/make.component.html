@@ -1,3 +1,50 @@
-<p>
-    Showing details of {{ _id }}
-</p>
+<img class="center-block" src="/img/spin.gif" *ngIf="!make">
+<div class="container" *ngIf="make">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <h3 class="card-header">{{ make.name }}</h3>
+                <div class="card-block">
+                    <img class="img-fluid" [src]="'/img/cars/' + make.image" >
+                </div>
+                <div class="card-block">
+                    <p>{{ make.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <table class="cars table table-hover">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th><a (click)="sortBy('name')">Model</a></th>
+                            <th><a (click)="sortBy('rank')">Rank</a></th>
+                            <th><a (click)="sortBy('votes')">Votes</a></th>
+                            <th class="comments">Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let model of make.models.models">
+                            <td>
+                                <a [routerLink]="['/model', model.id]">
+                                    <img class="img-thumbnail" [src]="'/img/cars/' + model.image" title="{{ model.make + ' ' + model.name }}">
+                                </a>
+                            </td>
+                            <td><a [routerLink]="['/model', model.id]">{{ model.name }}</a></td>
+                            <td>{{ model.rank }}</td>
+                            <td>{{ model.votes }}</td>
+                            <td>
+                                <div *ngFor="let comment of model.comments">
+                                    <p class="comment">{{ comment }}</p>
+                                </div>
+                                <a [routerLink]="['/model', model.id]" *ngIf="model.totalComments > 3">View more</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <my-pager [page]="page" [totalPages]="make.models.totalPages" (goToPage)="goToPage($event)"></my-pager>
+        </div>
+    </div>
+</div>

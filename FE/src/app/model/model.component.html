@@ -2,26 +2,22 @@
 <div class="container" *ngIf="model">
     <div class="row">
         <div class="col-md-2">
-            <div>
-                <div class="card-block">
-                    <a [routerLink]="['/make', model.makeId]">
-                        <img class="img-fluid" [src]="'/img/cars/' + model.makeImage" >
-                    </a>
-                </div>
-                <div class="card-block text-xs-center">
-                    <h4>{{ model.make }}</h4>
-                </div>
+            <div class="card-block">
+                <a [routerLink]="['/make', model.makeId]">
+                    <img class="img-fluid" [src]="'/img/cars/' + model.makeImage" >
+                </a>
+            </div>
+            <div class="card-block text-xs-center">
+                <h4>{{ model.make }}</h4>
             </div>
         </div>
         <div class="col-md-6">
-            <div>
-                <div class="card-block">
-                    <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
-                </div>
-                <div class="card-block">
-                    <h3>{{ model.name }}</h3>
-                    <p class="card-text">{{ model.description }}</p>
-                </div>
+            <div class="card-block">
+                <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
+            </div>
+            <div class="card-block">
+                <h3>{{ model.name }}</h3>
+                <p class="card-text">{{ model.description }}</p>
             </div>
         </div>
         <div class="col-md-4">

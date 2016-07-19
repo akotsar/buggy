@@ -4,6 +4,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { ApiService } from '../shared/api.service';
 import { Model } from '../shared/models/model';
 import { BrokenService } from '../shared/broken.service';
+import { PagerComponent } from '../shared/pager/pager.component';
 
 import './overall.component.scss';
 
@@ -12,7 +13,7 @@ import './overall.component.scss';
     selector: 'my-overall',
     templateUrl: 'overall.component.html',
     styleUrls: ['./overall.component.scss'],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, PagerComponent],
     providers: [ApiService]
 })
 export class OverallComponent implements OnInit, OnDestroy {
@@ -21,7 +22,6 @@ export class OverallComponent implements OnInit, OnDestroy {
     orderby: string;
     models: Model[];
     totalPages: number;
-    enteredPage: number;
 
     constructor(
         private api: ApiService,
@@ -42,38 +42,12 @@ export class OverallComponent implements OnInit, OnDestroy {
         this.updateData();
     }
 
-    prevPage() {
-        this.page--;
+    goToPage(page: number) {
+        this.page = page;
         this.updateData();
-    }
-
-    nextPage() {
-        this.page++;
-        this.updateData();
-    }
-
-    pageNumberPress(ev: any) {
-        if (ev.keyCode === 13 && !isNaN(parseFloat(<any>this.enteredPage))) {
-            // Intentional bug:
-            if (this.enteredPage === 1 || this.enteredPage === this.totalPages) {
-                return;
-            }
-
-            if (this.enteredPage > this.totalPages) {
-                this.enteredPage = this.totalPages;
-            }
-
-            this.page = this.enteredPage;
-            this.updateData();
-        }
     }
 
     private updateData() {
-        if (this.page <= 1) {
-             this.page = 1;
-        }
-
-        this.enteredPage = this.page;
         this.api.getModels(this.page, this.orderby)
             .subscribe(models => {
                 this.models = models.models;

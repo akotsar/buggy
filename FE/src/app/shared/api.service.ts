@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { User } from './models/user';
 import { Dashboard } from './models/dashboard/dashboard';
-import { Models } from './models/models';
+import { ModelList } from './models/model-list';
 import { ModelDetails } from './models/model-details';
+import { MakeDetails } from './models/make-details';
 import { RegistrationRequest } from './models/register/registration-request';
 import { UserProfile } from './models/user-profile';
 
@@ -43,7 +44,7 @@ export class ApiService {
       .map(res => <Dashboard>res.json());
   }
 
-  public getModels(page?: number, orderBy?: string, makeId?: number): Observable<Models> {
+  public getModels(page?: number, orderBy?: string, makeId?: number): Observable<ModelList> {
     let url = this._serviceUrl + '/api/models?' + this.urlEncode({
       page: page,
       orderBy: orderBy,
@@ -51,12 +52,20 @@ export class ApiService {
     });
 
     return this.http.get(url)
-      .map(res => <Models>res.json());
+      .map(res => <ModelList>res.json());
   }
 
   public getModel(id: number, token?: string): Observable<ModelDetails> {
     return this.http.get(this._serviceUrl + '/api/models/' + id, { headers: this.getAuthHeaders(token) })
       .map(res => <ModelDetails>res.json());
+  }
+
+  public getMake(id: number, modelsPage?: number, modelsOrderBy?: string): Observable<MakeDetails> {
+    return this.http.get(this._serviceUrl + `/api/makes/${id}?` + this.urlEncode({
+        modelsPage: modelsPage,
+        modelsOrderBy: modelsOrderBy
+      }))
+      .map(res => <MakeDetails>res.json());
   }
 
   public vote(id: number, comment: string, token: string): Observable<any> {

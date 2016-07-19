@@ -1,7 +1,7 @@
 <img class="center-block" src="/img/spin.gif" *ngIf="loading">
 <div class="container" *ngIf="!loading">
     <div class="row">
-        <table class="table table-hover">
+        <table class="cars table table-hover">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
@@ -35,12 +35,5 @@
             </tbody>
         </table>
     </div>
-    <div class="row my-pager">
-        <div class="pull-xs-right">
-            <a (click)="prevPage()" class="btn" [class.disabled]="page <= 1">&laquo;</a>
-            <input type="text" class="form-control input-xs" [(ngModel)]="enteredPage" (keypress)="pageNumberPress($event)" />
-            <a (click)="nextPage()" class="btn">&raquo;</a>
-            page {{ page }} of {{ totalPages }}
-        </div>
-    </div>
+    <my-pager [page]="page" [totalPages]="totalPages" [buggy]="true" (goToPage)="goToPage($event)"></my-pager>
 </div>

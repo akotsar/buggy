@@ -1,0 +1,8 @@
+<div class="row" *ngIf="totalPages > 1">
+    <div class="pull-xs-right">
+        <a (click)="prevPage()" class="btn" [class.disabled]="page <= 1">&laquo;</a>
+        <input [(ngModel)]="enteredPage" type="text" class="form-control input-xs" (keyup.enter)="onPageNumberEnter()" (blur)="resetEnteredPage()" />
+        <a (click)="nextPage()" class="btn" [class.disabled]="!buggy && page >= totalPages">&raquo;</a>
+        page {{ page }} of {{ totalPages }}
+    </div>
+</div>

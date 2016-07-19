@@ -1,6 +1,6 @@
 import { Model } from './model';
 
-export class Models {
+export class ModelList {
     totalPages: number;
     models: Model[];
 }

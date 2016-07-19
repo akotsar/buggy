@@ -7,6 +7,8 @@ namespace Buggy.Dto
 {
     public class ModelItem
     {
+        private static readonly int MaxComments = 3;
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
@@ -36,7 +38,7 @@ namespace Buggy.Dto
             Comments = source.UserVotes
                 .Where(x => !string.IsNullOrEmpty(x.Comment))
                 .OrderByDescending(x => x.DateVoted)
-                .Select(x => x.Comment).Take(3).ToList();
+                .Select(x => x.Comment).Take(MaxComments).ToList();
 
             TotalComments = source.UserVotes.Count(x => !string.IsNullOrEmpty(x.Comment));
         }
