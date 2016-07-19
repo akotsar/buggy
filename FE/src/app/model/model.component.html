@@ -4,7 +4,7 @@
         <div class="col-md-2">
             <div class="card-block">
                 <a [routerLink]="['/make', model.makeId]">
-                    <img class="img-fluid" [src]="'/img/cars/' + model.makeImage" >
+                    <img class="img-fluid" [src]="'/img/cars/' + model.makeImage" title="{{ model.make }}">
                 </a>
             </div>
             <div class="card-block text-xs-center">
@@ -14,10 +14,6 @@
         <div class="col-md-6">
             <div class="card-block">
                 <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
-            </div>
-            <div class="card-block">
-                <h3>{{ model.name }}</h3>
-                <p class="card-text">{{ model.description }}</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -55,6 +51,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <hr/>
+        <h3>{{ model.name }}</h3>
+        <p>{{ model.description }}</p>
     </div>
     <div class="row" *ngIf="model.comments.length > 0">
         <table class="table">

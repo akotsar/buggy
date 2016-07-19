@@ -1,18 +1,22 @@
 <img class="center-block" src="/img/spin.gif" *ngIf="!make">
 <div class="container" *ngIf="make">
     <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <h3 class="card-header">{{ make.name }}</h3>
-                <div class="card-block">
-                    <img class="img-fluid" [src]="'/img/cars/' + make.image" >
-                </div>
-                <div class="card-block">
-                    <p>{{ make.description }}</p>
+        <div class="card">
+            <h3 class="card-header">{{ make.name }}</h3>
+            <div class="card-block">
+                <div class="container">
+                    <div class="col-md-3">
+                        <img class="img-fluid" [src]="'/img/cars/' + make.image" title="{{ make.name }}">
+                    </div>
+                    <div class="col-md-9">
+                        <p>{{ make.description }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+    </div>
+    <div class="row">
+        <div>
             <div class="row">
                 <table class="cars table table-hover">
                     <thead>
