@@ -1,24 +1,24 @@
 <img class="center-block" src="/img/spin.gif" *ngIf="!model">
 <div class="container" *ngIf="model">
     <div class="row">
-        <div class="col-md-2">
-            <div class="card-block">
+        <div class="col-lg-2">
+            <div class="card-block text-xs-center">
                 <a [routerLink]="['/make', model.makeId]">
-                    <img class="img-fluid" [src]="'/img/cars/' + model.makeImage" title="{{ model.make }}">
+                    <img class="img-fluid center-block" [src]="'/img/cars/' + model.makeImage" title="{{ model.make }}">
                 </a>
             </div>
             <div class="card-block text-xs-center">
                 <h4>{{ model.make }}</h4>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="card-block">
                 <a [routerLink]="['/']">
-                    <img class="img-fluid" style="width: 100%" [src]="'/img/cars/' + model.image" >
+                    <img class="img-fluid" [src]="'/img/cars/' + model.image" >
                 </a>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-block">
                     <h4>Specification</h4>

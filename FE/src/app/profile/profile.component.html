@@ -2,7 +2,7 @@
 <div class="container my-form" *ngIf="!loading">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="card">
                     <h3 class="card-header">Basic</h3>
                     <div class="card-block">
@@ -29,16 +29,16 @@
                     </div>
                 </div>
 
-                <div class="result alert alert-danger" *ngIf="error">
+                <div class="result alert alert-danger hidden-md-down" *ngIf="error">
                     {{ error }}
                 </div>
 
-                <div class="result alert alert-success" *ngIf="success">
+                <div class="result alert alert-success hidden-md-down" *ngIf="success">
                     The profile has been saved successful
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="card">
                     <h3 class="card-header">Additional Info</h3>
                     <div class="card-block">
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <div class="card">
                     <h3 class="card-header">Additional Info</h3>
                     <div class="card-block">
@@ -137,6 +137,16 @@
             <div class="pull-xs-right">
                 <button type="submit" class="btn btn-default" [disabled]="!form.valid || sending">Save</button>
                 <a [routerLink]="['']" role="button" class="btn">Cancel</a>
+            </div>
+        </div>
+
+        <div class="row hidden-lg-up">
+            <div class="result alert alert-danger" *ngIf="error">
+                {{ error }}
+            </div>
+
+            <div class="result alert alert-success" *ngIf="success">
+                The profile has been saved successful
             </div>
         </div>
     </form>

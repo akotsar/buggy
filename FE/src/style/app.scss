@@ -15,17 +15,22 @@
     margin-top: 15px;
 }
 
-table.cars img { width: 150px; }
+table.cars img { width: 12rem; }
 
 table.cars th a { cursor: pointer; }
 
 table.cars p.comment {
-    max-width: 250px;
+    min-width: 2rem;
+    max-width: 13rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
+table.cars .thumbnail {
+    min-width: 6rem;
+}
+
 table.cars .comments {
-    width: 250px;
+    min-width: 1rem;
 }

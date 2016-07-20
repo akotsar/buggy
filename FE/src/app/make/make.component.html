@@ -42,7 +42,7 @@
                             <td>{{ model.votes }}</td>
                             <td>
                                 <div *ngFor="let comment of model.comments">
-                                    <p class="comment">{{ comment }}</p>
+                                    <p class="comment small">{{ comment }}</p>
                                 </div>
                                 <a [routerLink]="['/model', model.id]" *ngIf="model.totalComments > 3">View more</a>
                             </td>

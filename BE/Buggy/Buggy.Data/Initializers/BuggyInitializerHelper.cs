@@ -50,6 +50,7 @@ namespace Buggy.Data.Initializers
         public async Task ResetCars()
         {
             _db.Models.RemoveRange(_db.Models);
+            _db.Makes.RemoveRange(_db.Makes);
             await _db.SaveChangesAsync();
 
             await CreateCars();

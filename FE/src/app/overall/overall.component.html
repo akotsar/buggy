@@ -4,7 +4,7 @@
         <table class="cars table table-hover">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
+                    <th class="thumbnail">&nbsp;</th>
                     <th><a (click)="sortBy('make')">Make</a></th>
                     <th><a (click)="sortBy('name')">Model</a></th>
                     <th><a (click)="sortBy('rank')">Rank</a></th>
@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let model of models">
-                    <td>
+                    <td class="thumbnail">
                         <a [routerLink]="['/model', model.id]">
                             <img class="img-thumbnail" [src]="'/img/cars/' + model.image" title="{{ model.make + ' ' + model.name }}">
                         </a>
@@ -27,7 +27,7 @@
                     <td>{{ model.engineVol | number:'.1-2' }}l</td>
                     <td>
                         <div *ngFor="let comment of model.comments">
-                            <p class="comment">{{ comment }}</p>
+                            <p class="comment small">{{ comment }}</p>
                         </div>
                         <a [routerLink]="['/model', model.id]" *ngIf="model.totalComments > 3">View more</a>
                     </td>
