@@ -3,7 +3,7 @@ import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { ModelDetails } from '../shared/models/model-details';
 import { LoginService } from '../shared/login.service';
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/api';
 import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
 
 @Component({
@@ -48,7 +48,7 @@ export class ModelComponent implements OnInit, OnDestroy {
      onVote(comment: string) {
          this.voting = true;
          this.error = '';
-         this.api.vote(this.id, comment, this.login.getToken())
+         this.api.vote(this.id, comment)
             .finally(() => this.voting = false)
             .subscribe(
                 r => this.refresh(),
@@ -60,7 +60,7 @@ export class ModelComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.api.getModel(this.id, this.login.getToken())
+        this.api.getModel(this.id)
             .subscribe(model => this.model = model);
      }
 }

@@ -5,7 +5,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { BrokenService } from '../shared/broken.service';
 import { PagerComponent } from '../shared/pager/pager.component';
 import { MakeDetails } from '../shared/models/make-details';
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/api';
 import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
 
 @Component({

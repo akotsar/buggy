@@ -5,7 +5,8 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 import { AppComponent } from './app/app.component';
 import { APP_ROUTER_PROVIDERS } from './app/app.routes';
-import { ApiService } from './app/shared/api.service';
+import { ConfigService } from './app/shared';
+import { AuthApiService } from './app/shared/api';
 import { LOGIN_SERVICE_PROVIDER } from './app/shared/login.service';
 
 // depending on the env mode, enable prod mode or add debugging modules
@@ -19,7 +20,8 @@ bootstrap(AppComponent, [
     APP_ROUTER_PROVIDERS,
     disableDeprecatedForms(),
     provideForms(),
-    ApiService,
+    ConfigService,
+    AuthApiService,
     LOGIN_SERVICE_PROVIDER
   ])
   .catch(err => console.error(err));

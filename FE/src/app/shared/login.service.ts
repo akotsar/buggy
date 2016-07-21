@@ -1,8 +1,8 @@
 import { provide, Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from './api.service';
-import { User } from './models/user';
+import { AuthApiService } from './api/auth.api.service';
+import { CurrentUser } from './models/current-user';
 
 @Injectable()
 export class LoginService {
@@ -10,9 +10,9 @@ export class LoginService {
 
     @Output() loggedIn = new EventEmitter();
     @Output() loggedOut = new EventEmitter();
-    user: User;
+    user: CurrentUser;
 
-    public static getInstance(api: ApiService): LoginService {
+    public static getInstance(api: AuthApiService): LoginService {
         if (LoginService.instance === null) {
             LoginService.instance = new LoginService(api);
         }
@@ -21,7 +21,7 @@ export class LoginService {
     }
 
     constructor(
-        private api: ApiService
+        private api: AuthApiService
     ) {
         let token = localStorage.getItem('token');
         if (token) {
@@ -37,7 +37,7 @@ export class LoginService {
         return this.user != null;
     }
 
-    public login(username: string, password: string): Observable<User> {
+    public login(username: string, password: string): Observable<CurrentUser> {
         return this.api.authenticate(username, password)
             .flatMap(token => this.updateUser(token));
     }
@@ -48,7 +48,7 @@ export class LoginService {
         this.loggedOut.emit({});
     }
 
-    private updateUser(token: string): Observable<User> {
+    private updateUser(token: string): Observable<CurrentUser> {
         return this.api.getCurrentUser(token)
             .map(user => {
                 this.setToken(token);
@@ -73,8 +73,8 @@ export class LoginService {
 
 export const LOGIN_SERVICE_PROVIDER = [
   provide(LoginService, {
-    deps: [ApiService],
-    useFactory: (api: ApiService): LoginService => {
+    deps: [AuthApiService],
+    useFactory: (api: AuthApiService): LoginService => {
       return LoginService.getInstance(api);
     }
   })

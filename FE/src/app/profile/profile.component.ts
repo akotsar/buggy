@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { ApiService } from '../shared/api.service';
-import { LoginService } from '../shared/login.service';
+import { ApiService } from '../shared/api';
 import { UserProfile } from '../shared/models/user-profile';
 
 @Component({
@@ -22,13 +21,12 @@ export class ProfileComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private api: ApiService,
-        private login: LoginService
+        private api: ApiService
     ) {
     }
 
     ngOnInit() {
-        this.api.getProfile(this.login.getToken())
+        this.api.getProfile()
             .subscribe(p => this.initForm(p));
     }
 
@@ -37,7 +35,7 @@ export class ProfileComponent implements OnInit {
         this.success = false;
         this.sending = true;
 
-        this.api.saveProfile(this.login.getToken(), this.form.value)
+        this.api.saveProfile(this.form.value)
             .finally(() => this.sending = false)
             .subscribe(
                 r => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { Dashboard } from '../shared/models/dashboard/dashboard';
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/api';
 
 @Component({
   selector: 'my-home',

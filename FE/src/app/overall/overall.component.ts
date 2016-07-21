@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/api';
 import { Model } from '../shared/models/model';
 import { BrokenService } from '../shared/broken.service';
 import { PagerComponent } from '../shared/pager/pager.component';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { ApiService } from './shared';
+import { ApiService } from './shared/api';
 import { LoginComponent } from './login';
 import { BrokenService } from './shared/broken.service';
 

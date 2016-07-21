@@ -16,7 +16,10 @@
             <span class="nav-link disabled">Hi, {{ loginService.user.firstName }}</span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['profile']">Profile</a>
+            <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+        </li>
+        <li class="nav-item" *ngIf="loginService.user.isAdmin">
+            <a class="nav-link" [routerLink]="['/admin']">Admin</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="javascript:void(0)" (click)="doLogout()">Logout</a>
