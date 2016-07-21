@@ -41,7 +41,6 @@ namespace Buggy.Controllers
         [Route("users")]
         public async Task<UserItem[]> GetUsers()
         {
-            var seed = new Random().Next();
             return (await _db.Users.OrderBy(x => x.UserName).ToArrayAsync()).Select(
                 (x, i) => new UserItem
                     {
@@ -51,7 +50,7 @@ namespace Buggy.Controllers
                         LockedOut =
                             x.LockoutEnabled
                             && x.LockoutEndDateUtc.GetValueOrDefault(DateTime.MinValue) > DateTime.UtcNow,
-                        Password = PlainPasswords[(seed + i) % PlainPasswords.Length]
+                        Password = PlainPasswords[i % PlainPasswords.Length]
                     }).ToArray();
         }
 

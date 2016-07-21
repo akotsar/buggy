@@ -1,6 +1,7 @@
 import { provideRouter, RouterConfig } from '@angular/router';
 
 import { AuthGuard } from './shared/auth.guard';
+import { AdminGuard } from './shared/admin.guard';
 
 import { HomeComponent } from './home';
 import { MakeComponent } from './make';
@@ -17,7 +18,7 @@ export const routes: RouterConfig = [
   { path: 'make/:id', component: MakeComponent },
   { path: 'model/:id', component: ModelComponent },
   { path: 'overall', component: OverallComponent },
-  { path: 'admin', component: AdminComponent, children: [
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard], children: [
     { path: '', redirectTo: 'users' },
     { path: 'users', component: UsersComponent }
   ] },
@@ -25,5 +26,6 @@ export const routes: RouterConfig = [
 
 export const APP_ROUTER_PROVIDERS = [
   provideRouter(routes),
-  AuthGuard
+  AuthGuard,
+  AdminGuard
 ];

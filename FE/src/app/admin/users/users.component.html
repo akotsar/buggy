@@ -1,1 +1,39 @@
-Hello!
+<img class="center-block" src="/img/spin.gif" *ngIf="!users">
+<div class="container" *ngIf="users">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Locked Out</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>
+                    {{ user.lockedOut ? 'Yes' : 'No' }}
+                    <small>
+                        <span *ngIf="user.lockedOut">
+                            (<a class="btn-link" (click)="unlock(user.username)">unlock</a>)
+                        </span>
+                        <span *ngIf="!user.lockedOut">
+                            (<a class="btn-link" (click)="lock(user.username)">lock</a>)
+                        </span>
+                    </small>
+                </td>
+                <td>
+                    {{ user.password }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-danger" *ngIf="error">
+        {{ error }}
+    </div>
+</div>

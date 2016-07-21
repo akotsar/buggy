@@ -11,6 +11,7 @@ import { ModelDetails } from '../models/model-details';
 import { MakeDetails } from '../models/make-details';
 import { RegistrationRequest } from '../models/register/registration-request';
 import { UserProfile } from '../models/user-profile';
+import { User } from '../models/admin/user';
 
 @Injectable()
 export class ApiService extends BaseApiService {
@@ -51,45 +52,57 @@ export class ApiService extends BaseApiService {
     }
 
     public vote(id: number, comment: string): Observable<any> {
-        return this.post(`/api/models/${id}/vote`, { comment: comment })
-            .catch(err => this.handleError<boolean>(err));
+        return this.post(`/api/models/${id}/vote`, { comment: comment });
     }
 
     public register(req: RegistrationRequest): Observable<boolean> {
         return this.post('/api/users', req)
-            .map(res => true)
-            .catch(err => this.handleError<boolean>(err));
+            .map(res => true);
     }
 
     public getProfile(): Observable<UserProfile> {
         return this.get('/api/users/profile')
-            .map(res => <UserProfile>res.json())
-            .catch(err => this.handleError<UserProfile>(err));
+            .map(res => <UserProfile>res.json());
     }
 
     public saveProfile(profile: UserProfile): Observable<any> {
-        return this.put('/api/users/profile', profile)
-            .catch(err => this.handleError<any>(err));
+        return this.put('/api/users/profile', profile);
+    }
+
+    public getUsers(): Observable<Array<User>> {
+        return this.get('/api/admin/users')
+            .map(res => <Array<User>>res.json());
+    }
+
+    public lockUser(username: string): Observable<any> {
+        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/lock');
+    }
+
+    public unlockUser(username: string): Observable<any> {
+        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/unlock');
     }
 
     private get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
 
-        return this.http.get(this.config.serviceUrl + url, options);
+        return this.http.get(this.config.serviceUrl + url, options)
+            .catch(err => this.handleError<any>(err));
     }
 
-    private post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    private post(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
 
-        return this.http.post(this.config.serviceUrl + url, body, options);
+        return this.http.post(this.config.serviceUrl + url, body, options)
+            .catch(err => this.handleError<any>(err));
     }
 
-    private put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    private put(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
 
-        return this.http.put(this.config.serviceUrl + url, body, options);
+        return this.http.put(this.config.serviceUrl + url, body, options)
+            .catch(err => this.handleError<any>(err));
     }
 }

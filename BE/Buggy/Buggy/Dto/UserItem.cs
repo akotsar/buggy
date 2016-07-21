@@ -1,8 +1,4 @@
-﻿using System;
-
-using Buggy.Data.Users;
-
-namespace Buggy.Dto
+﻿namespace Buggy.Dto
 {
     public class UserItem
     {
