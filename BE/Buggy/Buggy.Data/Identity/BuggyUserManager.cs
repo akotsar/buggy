@@ -10,6 +10,8 @@ namespace Buggy.Data.Identity
         public BuggyUserManager(BuggyContext context)
             : base(new UserStore<User>(context))
         {
+            UserLockoutEnabledByDefault = true;
+            UserTokenProvider = new TotpSecurityStampBasedTokenProvider<User, string>();
         }
     }
 }

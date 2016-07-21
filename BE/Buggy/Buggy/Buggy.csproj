@@ -184,6 +184,7 @@
     <Compile Include="Dto\ModelItem.cs" />
     <Compile Include="Dto\ModelsList.cs" />
     <Compile Include="Dto\NewUserRequest.cs" />
+    <Compile Include="Dto\UserItem.cs" />
     <Compile Include="Dto\UserProfile.cs" />
     <Compile Include="Dto\VoteRequest.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />

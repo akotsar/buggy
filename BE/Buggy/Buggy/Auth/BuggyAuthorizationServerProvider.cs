@@ -32,6 +32,12 @@ namespace Buggy.Auth
                     return;
                 }
 
+                if (await userManager.IsLockedOutAsync(user.Id))
+                {
+                    context.SetError("invalid_grant", "The user is locked out.");
+                    return;
+                }
+
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim("id", user.Id));
                 identity.AddClaim(new Claim("roles", string.Join(",", await userManager.GetRolesAsync(user.Id))));

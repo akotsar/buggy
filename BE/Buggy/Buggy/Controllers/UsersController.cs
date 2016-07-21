@@ -67,7 +67,12 @@ namespace Buggy.Controllers
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
-            return new CurrentUserInfo { FirstName = user.FirstName, LastName = user.LastName };
+            return new CurrentUserInfo
+                   {
+                       FirstName = user.FirstName,
+                       LastName = user.LastName,
+                       IsAdmin = await _userManager.IsInRoleAsync(user.Id, "admin")
+                   };
         }
 
         [HttpGet]
