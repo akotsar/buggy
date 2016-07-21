@@ -5,7 +5,6 @@ import { ApiService } from './shared';
 import { LoginComponent } from './login';
 import { BrokenService } from './shared/broken.service';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../style/app.scss';
 
 /*
