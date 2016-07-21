@@ -19,14 +19,23 @@ namespace Buggy.Controllers
     [RoutePrefix("api/admin")]
     public class AdminController : ApiController
     {
-        private static readonly string[] PlainPasswords =
+        private static readonly string[] PlainPasswords;
+
+        static AdminController()
         {
-            "123456", "password", "12345678", "qwerty", "123456789",
-            "baseball", "dragon", "football", "monkey", "letmein",
-            "abc123", "111111", "mustang", "access", "shadow", "master",
-            "michael", "superman", "696969", "123123", "batman",
-            "trustno1"
-        };
+            var rnd = new Random();
+
+            PlainPasswords =
+                new[]
+                {
+                    "123456", "password", "12345678", "qwerty", "123456789", "baseball", "dragon", "football", "monkey",
+                    "letmein", "abc123", "111111", "mustang", "access", "shadow", "master", "michael", "superman",
+                    "696969", "123123", "batman", "trustno1"
+                }.Select(p => new { p, r = rnd.Next() })
+                    .OrderBy(x => x.r)
+                    .Select(x => x.p)
+                    .ToArray();
+        }
 
         private readonly BuggyContext _db;
         private readonly BuggyUserManager _userManager;
