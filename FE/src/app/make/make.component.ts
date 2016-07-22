@@ -15,7 +15,7 @@ import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
     pipes: [ShowdownPipe]
 })
 export class MakeComponent implements OnInit, OnDestroy {
-    private _id: number;
+    private id: number;
 
     make: MakeDetails;
     page = 1;
@@ -33,7 +33,7 @@ export class MakeComponent implements OnInit, OnDestroy {
         this.route.params
           .map(params => params['id'])
           .subscribe(id => {
-              this._id = id;
+              this.id = id;
               this.updateData();
           });
     }
@@ -57,7 +57,7 @@ export class MakeComponent implements OnInit, OnDestroy {
     }
 
     private updateData() {
-        this.api.getMake(this._id, this.page, this.orderby)
+        this.api.getMake(this.id, this.page, this.orderby)
           .subscribe(make => this.make = make);
     }
 }

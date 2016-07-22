@@ -4,4 +4,5 @@ export interface User {
     lastName: string;
     lockedOut: boolean;
     password: string;
+    canDelete: boolean;
 }

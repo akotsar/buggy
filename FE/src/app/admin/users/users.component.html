@@ -8,6 +8,7 @@
                 <th>Last Name</th>
                 <th>Locked Out</th>
                 <th>Password</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +28,36 @@
                     </small>
                 </td>
                 <td>
-                    {{ user.password }}
+                    <span [hidden]="user.resettingPassword">
+                        {{ user.password }}
+                        <small>
+                            <span>
+                                (<a class="btn-link" (click)="user.resettingPassword = true;">reset</a>)
+                            </span>
+                        </small>
+                    </span>
+                    <span [hidden]="!user.resettingPassword || user.sendingPassword">
+                        <input type="password" class="small" #newPassword />
+                        <br />
+                        <a class="btn btn-link btn-sm p-l-0 m-l-0" (click)="resetPassword(user, newPassword.value)">change</a>
+                        <a class="btn btn-link btn-sm p-l-0" (click)="user.resettingPassword = false;">cancel</a>
+                    </span>
+                    <span [hidden]="!user.resettingPassword || !user.sendingPassword">
+                        <img class="center-block" src="/img/spin.gif" >
+                    </span>
+                </td>
+                <td>
+                    <span [hidden]="!user.canDelete || user.deleting">
+                        <a class="btn btn-link p-y-0" (click)="user.deleting = true">delete</a>
+                    </span>
+                    <span [hidden]="!user.canDelete || !user.deleting || user.sendingDelete">
+                        Sure?
+                        <a class="btn btn-link btn-sm m-a-0 p-x-0" (click)="deleteUser(user)">Yes</a>
+                        <a class="btn btn-link btn-sm m-a-0 p-x-0" (click)="user.deleting = false">No</a>
+                    </span>
+                    <span [hidden]="!user.canDelete || !user.deleting || !user.sendingDelete">
+                        <img class="center-block" src="/img/spin.gif" >
+                    </span>
                 </td>
             </tr>
         </tbody>

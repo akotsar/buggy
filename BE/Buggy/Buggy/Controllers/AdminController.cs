@@ -12,6 +12,9 @@ using Buggy.Data.Identity;
 using Buggy.Data.Initializers;
 using Buggy.Data.Users;
 using Buggy.Dto;
+using Buggy.Extensions;
+
+using Microsoft.AspNet.Identity;
 
 namespace Buggy.Controllers
 {
@@ -50,6 +53,8 @@ namespace Buggy.Controllers
         [Route("users")]
         public async Task<UserItem[]> GetUsers()
         {
+            var currentUserId = Request.GetUserId();
+
             return (await _db.Users.OrderBy(x => x.UserName).ToArrayAsync()).Select(
                 (x, i) => new UserItem
                     {
@@ -59,7 +64,8 @@ namespace Buggy.Controllers
                         LockedOut =
                             x.LockoutEnabled
                             && x.LockoutEndDateUtc.GetValueOrDefault(DateTime.MinValue) > DateTime.UtcNow,
-                        Password = PlainPasswords[i % PlainPasswords.Length]
+                        Password = PlainPasswords[i % PlainPasswords.Length],
+                        CanDelete = x.Id != currentUserId
                     }).ToArray();
         }
 
@@ -68,14 +74,9 @@ namespace Buggy.Controllers
         public async Task SetPassword(string username, [FromBody] string password)
         {
             var user = await GetUserByName(username);
-
             var token = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
             var result = await _userManager.ResetPasswordAsync(user.Id, token, password);
-            if (!result.Succeeded)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", result.Errors)));
-            }
+            EnsureSuccessfulResult(result);
         }
 
         [HttpPut]
@@ -83,14 +84,9 @@ namespace Buggy.Controllers
         public async Task LockUser(string username)
         {
             var user = await GetUserByName(username);
-
             await _userManager.SetLockoutEnabledAsync(user.Id, true);
             var result = await _userManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.MaxValue);
-            if (!result.Succeeded)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", result.Errors)));
-            }
+            EnsureSuccessfulResult(result);
         }
 
         [HttpPut]
@@ -98,13 +94,17 @@ namespace Buggy.Controllers
         public async Task UnlockUser(string username)
         {
             var user = await GetUserByName(username);
-
             var result = await _userManager.SetLockoutEndDateAsync(user.Id, DateTimeOffset.UtcNow);
-            if (!result.Succeeded)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", result.Errors)));
-            }
+            EnsureSuccessfulResult(result);
+        }
+
+        [HttpDelete]
+        [Route("users/{username}")]
+        public async Task DeleteUser(string username)
+        {
+            var user = await GetUserByName(username);
+            var result = await _userManager.DeleteAsync(user);
+            EnsureSuccessfulResult(result);
         }
 
         [HttpPost]
@@ -124,6 +124,15 @@ namespace Buggy.Controllers
                     Request.CreateErrorResponse(HttpStatusCode.NotFound, "Unable to find the user."));
             }
             return user;
+        }
+
+        private void EnsureSuccessfulResult(IdentityResult result)
+        {
+            if (!result.Succeeded)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(", ", result.Errors)));
+            }
         }
     }
 }

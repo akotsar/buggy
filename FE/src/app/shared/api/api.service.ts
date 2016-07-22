@@ -82,6 +82,14 @@ export class ApiService extends BaseApiService {
         return this.put('/api/admin/users/' + encodeURIComponent(username) + '/unlock');
     }
 
+    public resetPassword(username: string, password: string): Observable<any> {
+        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/password', password);
+    }
+
+    public deleteUser(username: string): Observable<any> {
+        return this.delete('/api/admin/users/' + encodeURIComponent(username));
+    }
+
     private get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
@@ -93,16 +101,26 @@ export class ApiService extends BaseApiService {
     private post(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
+        options.headers.append('Content-Type', 'application/json');
 
-        return this.http.post(this.config.serviceUrl + url, body, options)
+        return this.http.post(this.config.serviceUrl + url, JSON.stringify(body), options)
             .catch(err => this.handleError<any>(err));
     }
 
     private put(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
+        options.headers.append('Content-Type', 'application/json');
 
-        return this.http.put(this.config.serviceUrl + url, body, options)
+        return this.http.put(this.config.serviceUrl + url, JSON.stringify(body), options)
+            .catch(err => this.handleError<any>(err));
+    }
+
+    private delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        options = options || {};
+        options.headers = this.getAuthHeaders(this.login.getToken());
+
+        return this.http.delete(this.config.serviceUrl + url, options)
             .catch(err => this.handleError<any>(err));
     }
 }

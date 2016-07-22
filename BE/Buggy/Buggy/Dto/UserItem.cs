@@ -11,5 +11,7 @@
         public bool LockedOut { get; set; }
 
         public string Password { get; set; }
+
+        public bool CanDelete { get; set; }
     }
 }
