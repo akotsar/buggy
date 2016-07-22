@@ -12,7 +12,7 @@ export class BaseApiService {
     protected getAuthHeaders(token?: string): Headers {
         let headers = new Headers();
 
-        if (token !== undefined) {
+        if (token) {
             headers.append('Authorization', 'Bearer ' + token);
         }
 
