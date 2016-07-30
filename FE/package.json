@@ -9,18 +9,13 @@
     "watch": "webpack --watch --progress --profile",
     "build": "rimraf dist && webpack -p --progress --profile --bail",
     "server": "webpack-dev-server --inline --progress --port 8080",
-    "webdriver-update": "webdriver-manager update",
-    "webdriver-start": "webdriver-manager start",
     "lint": "tslint --force \"src/**/*.ts\"",
-    "e2e": "protractor",
-    "e2e-live": "protractor --elementExplorer",
     "pretest": "npm run lint",
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
-    "ci": "npm run e2e && npm run test",
     "docs": "typedoc --options typedoc.json src/app/app.component.ts",
     "start": "npm run server",
-    "postinstall": "npm run webdriver-update && typings install"
+    "postinstall": "npm run typings install"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
@@ -67,7 +62,6 @@
     "null-loader": "0.1.1",
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "^0.9.1",
-    "protractor": "^3.1.1",
     "raw-loader": "0.5.1",
     "remap-istanbul": "^0.6.4",
     "rimraf": "^2.5.1",
