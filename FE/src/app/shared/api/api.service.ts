@@ -93,7 +93,6 @@ export class ApiService extends BaseApiService {
     private get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
-        options.headers.append('Accept', 'application/json');
 
         return this.http.get(this.config.serviceUrl + url, options)
             .catch(err => this.handleError<any>(err));
@@ -103,7 +102,6 @@ export class ApiService extends BaseApiService {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
         options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
 
         return this.http.post(this.config.serviceUrl + url, JSON.stringify(body), options)
             .catch(err => this.handleError<any>(err));
@@ -113,7 +111,6 @@ export class ApiService extends BaseApiService {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
         options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Accept', 'application/json');
 
         return this.http.put(this.config.serviceUrl + url, JSON.stringify(body), options)
             .catch(err => this.handleError<any>(err));
@@ -122,7 +119,6 @@ export class ApiService extends BaseApiService {
     private delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
         options = options || {};
         options.headers = this.getAuthHeaders(this.login.getToken());
-        options.headers.append('Accept', 'application/json');
 
         return this.http.delete(this.config.serviceUrl + url, options)
             .catch(err => this.handleError<any>(err));
