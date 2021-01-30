@@ -23,12 +23,12 @@ export class ApiService extends BaseApiService {
     }
 
     public getDashboard(): Observable<Dashboard> {
-        return this.get('/api/dashboard')
+        return this.get('/dashboard')
             .map(res => <Dashboard>res.json());
     }
 
-    public getModels(page?: number, orderBy?: string, makeId?: number): Observable<ModelList> {
-      let url = '/api/models?' + this.urlEncode({
+    public getModels(page?: number, orderBy?: string, makeId?: string): Observable<ModelList> {
+      let url = '/models?' + this.urlEncode({
           page: page,
           orderBy: orderBy,
           makeId: makeId
@@ -38,56 +38,56 @@ export class ApiService extends BaseApiService {
           .map(res => <ModelList>res.json());
     }
 
-    public getModel(id: number): Observable<ModelDetails> {
-        return this.get('/api/models/' + id)
+    public getModel(id: string): Observable<ModelDetails> {
+        return this.get('/models/' + id)
             .map(res => <ModelDetails>res.json());
     }
 
-    public getMake(id: number, modelsPage?: number, modelsOrderBy?: string): Observable<MakeDetails> {
-        return this.get(`/api/makes/${id}?` + this.urlEncode({
+    public getMake(id: string, modelsPage?: number, modelsOrderBy?: string): Observable<MakeDetails> {
+        return this.get(`/makes/${id}?` + this.urlEncode({
             modelsPage: modelsPage,
             modelsOrderBy: modelsOrderBy
         }))
         .map(res => <MakeDetails>res.json());
     }
 
-    public vote(id: number, comment: string): Observable<any> {
-        return this.post(`/api/models/${id}/vote`, { comment: comment });
+    public vote(id: string, comment: string): Observable<any> {
+        return this.post(`/models/${id}/vote`, { comment: comment });
     }
 
     public register(req: RegistrationRequest): Observable<boolean> {
-        return this.post('/api/users', req)
+        return this.post('/users', req)
             .map(res => true);
     }
 
     public getProfile(): Observable<UserProfile> {
-        return this.get('/api/users/profile')
+        return this.get('/users/profile')
             .map(res => <UserProfile>res.json());
     }
 
     public saveProfile(profile: UserProfile): Observable<any> {
-        return this.put('/api/users/profile', profile);
+        return this.put('/users/profile', profile);
     }
 
     public getUsers(): Observable<Array<User>> {
-        return this.get('/api/admin/users')
+        return this.get('/admin/users')
             .map(res => <Array<User>>res.json());
     }
 
     public lockUser(username: string): Observable<any> {
-        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/lock');
+        return this.put('/admin/users/' + encodeURIComponent(username) + '/lock');
     }
 
     public unlockUser(username: string): Observable<any> {
-        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/unlock');
+        return this.put('/admin/users/' + encodeURIComponent(username) + '/unlock');
     }
 
     public resetPassword(username: string, password: string): Observable<any> {
-        return this.put('/api/admin/users/' + encodeURIComponent(username) + '/password', password);
+        return this.put('/admin/users/' + encodeURIComponent(username) + '/password', password);
     }
 
     public deleteUser(username: string): Observable<any> {
-        return this.delete('/api/admin/users/' + encodeURIComponent(username));
+        return this.delete('/admin/users/' + encodeURIComponent(username));
     }
 
     private get(url: string, options?: RequestOptionsArgs): Observable<Response> {

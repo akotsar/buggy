@@ -15,7 +15,7 @@ import { ShowdownPipe } from '../shared/showdown/showdown.pipe';
     pipes: [ShowdownPipe]
 })
 export class MakeComponent implements OnInit, OnDestroy {
-    private id: number;
+    private id: string;
 
     make: MakeDetails;
     page = 1;

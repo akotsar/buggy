@@ -1,5 +1,5 @@
 export class DashboardMake {
-    id: number;
+    id: string;
     name: string;
     image: string;
     votes: number;

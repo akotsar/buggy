@@ -5,6 +5,6 @@ export class ConfigService {
     serviceUrl: string;
 
     constructor() {
-        this.serviceUrl = process.env.ENV === 'build' ? 'http://buggyapi.azurewebsites.net' : 'http://localhost:8888';
+        this.serviceUrl = process.env.ENV === 'build' ? 'http://buggyapi.azurewebsites.net' : 'http://localhost:3000';
     }
 }

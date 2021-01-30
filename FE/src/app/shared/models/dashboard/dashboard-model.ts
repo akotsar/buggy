@@ -1,5 +1,5 @@
 export class DashboardModel {
-    id: number;
+    id: string;
     make: string;
     name: string;
     image: string;

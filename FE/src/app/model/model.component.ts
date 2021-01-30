@@ -18,7 +18,7 @@ export class ModelComponent implements OnInit, OnDestroy {
     private logoutSub: any;
 
     voting = false;
-    id: number;
+    id: string;
     model: ModelDetails;
     error: string;
 
