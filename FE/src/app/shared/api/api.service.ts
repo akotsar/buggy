@@ -57,7 +57,7 @@ export class ApiService extends BaseApiService {
 
     public register(req: RegistrationRequest): Observable<boolean> {
         return this.post('/users', req)
-            .map(res => true);
+            .map(() => true as boolean);
     }
 
     public getProfile(): Observable<UserProfile> {
