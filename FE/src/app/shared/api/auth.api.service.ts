@@ -32,7 +32,7 @@ export class AuthApiService extends BaseApiService {
     }
 
     public getCurrentUser(token: string): Observable<CurrentUser> {
-        return this.http.get(this.config.serviceUrl + '/api/users/current', { headers: this.getAuthHeaders(token) })
+        return this.http.get(this.config.serviceUrl + '/users/current', { headers: this.getAuthHeaders(token) })
             .map(res => <CurrentUser>res.json())
             .catch(err => this.handleError<CurrentUser>(err));
     }
